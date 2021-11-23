@@ -26,7 +26,6 @@ function startGame() {
     
     let generatedNumbers = generateSquaresNumbers(numberOfSquares);
 
-
     // Per ogni numero nell'array, creo una cella e la appendo al grid container
     const mainGrid = document.getElementById('grid');
     mainGrid.innerHTML = '';
