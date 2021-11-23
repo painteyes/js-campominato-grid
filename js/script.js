@@ -1,21 +1,26 @@
-// L'utente indica un livello di difficoltà in base al quale viene generata una griglia di gioco quadrata, in cui ogni cella contiene un numero tra quelli compresi in un range:
-// con difficoltà 1 => tra 1 e 100
-// con difficoltà 2 => tra 1 e 81
-// con difficoltà 3 => tra 1 e 49
-// Quando l'utente clicca su ogni cella, la cella cliccata si colora di azzurro.
-
-
-// Ogni volta che clicco su play compare la griglia 
+// CLICKING ON THE PLAY BUTTON SHOWS THE GRID WITH THE SQUARES
 document.getElementById('play').addEventListener('click', startGame);
 
-function startGame() {
+// -----------------------------------------------------------------------------------------------
+// FUNCTIONS RELATED TO DOM
+// -------------------------
 
-    // CREARE LA GRIGLIA CON GLI SQUARE
-    // Creare un array di numeri in ordine crescente da 1 a 100 / da 1 a 81 / da 1 a 49
+// CLICKING ON EACH SQUARE THE ACTIVE CLASS WILL BE ADDED TO THE CLICKED SQUARE
+function handleSquareClick() {
+    this.classList.add('active');
+}
+
+// -----------------------------------------------------------------------------------------------
+// FUNCTIONS
+// -------------------------
+
+// CREATING THE GRID WITH SQUARES
+function startGame() {  
+    
+    // Select the DOM elements that affect the number of squares
     const difficultLevel = document.getElementById('difficult').value;
     
-    console.log(difficultLevel);
-    
+    // Check the value of the DOM elements to determine the corresponding number of squares
     let numberOfSquares;
 
     if (difficultLevel === 'easy') {
@@ -25,27 +30,26 @@ function startGame() {
     } else if (difficultLevel === 'crazy') {
         numberOfSquares = 49;
     }
-    
+
+    // Create an array of numbers in ascending order from 1 to 'numberOfSquares'  
     let generatedNumbers = generateSquaresNumbers(numberOfSquares);
 
-    // Per ogni numero nell'array, creo una cella e la appendo al grid container
+    // For each number in the array, create a cell and append it to the grid container
     const mainGrid = document.getElementById('grid');
-    mainGrid.innerHTML = '';
 
     for(let i = 0; i < generatedNumbers.length; i++) {
 
-        let sizeFactor = Math.sqrt(generatedNumbers.length);
-
         const thisNumber = generatedNumbers[i];
+        const formFactor = Math.sqrt(generatedNumbers.length);
 
-        const newGeneratedSquare = generateGridItem(thisNumber, sizeFactor);
+        // Creating a cell
+        const newGeneratedSquare = generateGridItem(thisNumber, formFactor);
         
-        // Aggiungere l'elemento alla griglia
+        // Appending the cell to the grid container
         mainGrid.appendChild(newGeneratedSquare);
-
     }
 
-    // Aggiungere il click agli elementi
+    // Add click to DOM elements
     const allElements = document.getElementsByClassName('square');    
 
     for (let i = 0; i < allElements.length; i++) {
@@ -54,36 +58,25 @@ function startGame() {
     }
 }
 
-// -----------
-// FUNZIONI LEGATE AL DOM
-// -----------
-
-// AL CLICK SU OGNI SQUARE
-// AGGIUNGO LA CLASSE ACTIVE ALLO SQUARE SU CUI HO CLICCATO
-function handleSquareClick() {
-    this.classList.add('active');
-}
-
-// -----------
-// FUNCTIONS
-// -----------
-
-// Creare un elemento della griglia
-// number -> numero da inserire nello square
-// squareSize -> formato dello square
+// Create a grid element
+// number -> number to put in the square
+// squareSize -> form factor of the square
 function generateGridItem(number, squareSize) {
+
+    // // Creating a element
     const newSquare = document.createElement('div');
     newSquare.classList.add('square');
     newSquare.innerHTML = `<span>${number}</span>`;
+
     newSquare.style.width = 'calc(100% /' + squareSize + ')';
     newSquare.style.height = 'calc(100% /' + squareSize + ')';
 
-    // return: Torna l'elemento html creato
+    // Return the element created    
     return newSquare;
 }
 
-// Genera un array con x numeri in ordine crescente
-// quantityOfNumbers -> quanti numeri deve generare
+// Generate an array with 'quantityOfNumbers' numbers in ascending order
+// quantityOfNumbers -> how many numbers should it generate
 function generateSquaresNumbers (quantityOfNumbers) {
 
     const numbersArray = [];
@@ -93,6 +86,8 @@ function generateSquaresNumbers (quantityOfNumbers) {
         numbersArray.push(thisNumber);
     }
 
-    // return: array di quantityOfNumbers numeri univoci
+    // Return an array from quantityOfNumbers
     return numbersArray;
 }
+
+// -----------------------------------------------------------------------------------------------
