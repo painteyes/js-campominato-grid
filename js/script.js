@@ -5,11 +5,11 @@
 // Quando l'utente clicca su ogni cella, la cella cliccata si colora di azzurro.
 
 
-// Ogni volta che clicco su un quadrato questo si colora di 
-// verde se il numero contenuto e pari e in rosso se dispari.
+// Ogni volta che clicco su play compare la griglia 
 document.getElementById('play').addEventListener('click', startGame);
 
 function startGame() {
+
     // CREARE LA GRIGLIA CON GLI SQUARE
     // Crearmi un array di numeri in ordine crescente da 1 a 100 / da 1 a 81 / da 1 a 49
     const difficultLevel = document.getElementById('difficult').getElementsByTagName('option').textContent;
