@@ -37,6 +37,9 @@ function startGame() {
     // For each number in the array, create a cell and append it to the grid container
     const mainGrid = document.getElementById('grid');
 
+    // Refreshing grid
+    mainGrid.innerHTML = '';
+
     for(let i = 0; i < generatedNumbers.length; i++) {
 
         const thisNumber = generatedNumbers[i];
