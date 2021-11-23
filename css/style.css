@@ -80,7 +80,7 @@ main {
 /* .square span {
     display: none;
 } */
-.square.active span {
+.active {
     background-color: blue;
 }
 

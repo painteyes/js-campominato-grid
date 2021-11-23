@@ -11,16 +11,18 @@ document.getElementById('play').addEventListener('click', startGame);
 function startGame() {
 
     // CREARE LA GRIGLIA CON GLI SQUARE
-    // Crearmi un array di numeri in ordine crescente da 1 a 100 / da 1 a 81 / da 1 a 49
-    const difficultLevel = document.getElementById('difficult').getElementsByTagName('option').textContent;
+    // Creare un array di numeri in ordine crescente da 1 a 100 / da 1 a 81 / da 1 a 49
+    const difficultLevel = document.getElementById('difficult').value;
+    
+    console.log(difficultLevel);
     
     let numberOfSquares;
 
-    if (difficultLevel === 'Easy') {
+    if (difficultLevel === 'easy') {
         numberOfSquares = 100;
-    } else if (difficultLevel === 'Hard') {
+    } else if (difficultLevel === 'hard') {
         numberOfSquares = 81;
-    } else if (difficultLevel === 'Crazy') {
+    } else if (difficultLevel === 'crazy') {
         numberOfSquares = 49;
     }
     
@@ -29,20 +31,28 @@ function startGame() {
     // Per ogni numero nell'array, creo una cella e la appendo al grid container
     const mainGrid = document.getElementById('grid');
     mainGrid.innerHTML = '';
+
     for(let i = 0; i < generatedNumbers.length; i++) {
 
         let sizeFactor = Math.sqrt(generatedNumbers.length);
 
         const thisNumber = generatedNumbers[i];
 
-        // const newGeneratedSquare 
-        newGeneratedSquare = generateGridItem(thisNumber, sizeFactor);
+        const newGeneratedSquare = generateGridItem(thisNumber, sizeFactor);
         
-        // Aggiungo l'elemento alla griglia
+        // Aggiungere l'elemento alla griglia
         mainGrid.appendChild(newGeneratedSquare);
+
+    }
+
+    // Aggiungere il click agli elementi
+    const allElements = document.getElementsByClassName('square');    
+
+    for (let i = 0; i < allElements.length; i++) {
+        const thisElement = allElements[i];
+        thisElement.addEventListener('click', handleSquareClick);
     }
 }
-
 
 // -----------
 // FUNZIONI LEGATE AL DOM
