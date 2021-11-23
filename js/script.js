@@ -26,31 +26,31 @@ function startGame() {
     
     let generatedNumbers = generateSquaresNumbers(numberOfSquares);
 
+
     // Per ogni numero nell'array, creo una cella e la appendo al grid container
     const mainGrid = document.getElementById('grid');
     mainGrid.innerHTML = '';
     for(let i = 0; i < generatedNumbers.length; i++) {
 
-        let cellDimension = Math.sqrt(generatedNumbers.length);
+        let sizeFactor = Math.sqrt(generatedNumbers.length);
 
         const thisNumber = generatedNumbers[i];
 
-        const newGeneratedSquare = generateGridItem(thisNumber, cellDimension);
-
-        // // Attacco l'evento allo square
-        // newGeneratedSquare.addEventListener('click', handleSquareClick);
+        // const newGeneratedSquare 
+        newGeneratedSquare = generateGridItem(thisNumber, sizeFactor);
         
         // Aggiungo l'elemento alla griglia
         mainGrid.appendChild(newGeneratedSquare);
     }
 }
 
-// AL CLICK SU OGNI SQUARE
-// AGGIUNGO LA CLASSE ACTIVE ALLO SQUARE SU CUI HO CLICCATO E LA CLASSE EVEN O ODD IN BASE SE IL CONTENUTO 
-// E' PARI O DISPARI
+
 // -----------
 // FUNZIONI LEGATE AL DOM
 // -----------
+
+// AL CLICK SU OGNI SQUARE
+// AGGIUNGO LA CLASSE ACTIVE ALLO SQUARE SU CUI HO CLICCATO
 function handleSquareClick() {
     this.classList.add('active');
 }
@@ -61,44 +61,29 @@ function handleSquareClick() {
 
 // Creare un elemento della griglia
 // number -> numero da inserire nello square
-// 
-// return: Torna l'elemento html creato
-function generateGridItem(number, cellDimension) {
+// squareSize -> formato dello square
+function generateGridItem(number, squareSize) {
     const newSquare = document.createElement('div');
     newSquare.classList.add('square');
     newSquare.innerHTML = `<span>${number}</span>`;
-    newSquare.style.width = 'calc(100% /' + cellDimension + ')';
-    newSquare.style.height = 'calc(100% /' + cellDimension + ')';
+    newSquare.style.width = 'calc(100% /' + squareSize + ')';
+    newSquare.style.height = 'calc(100% /' + squareSize + ')';
 
+    // return: Torna l'elemento html creato
     return newSquare;
 }
 
 // Genera un array con x numeri in ordine crescente
 // quantityOfNumbers -> quanti numeri deve generare
-// 
-// return: array di quantityOfNumbers numeri univoci
 function generateSquaresNumbers (quantityOfNumbers) {
 
     const numbersArray = [];
 
-    for(let i = 0; i < quantityOfNumbers.length; i++) {
+    for(let i = 0; i < quantityOfNumbers; i++) {
         const thisNumber = i;
         numbersArray.push(thisNumber);
     }
 
-    // while(numbersArray.length < quantityOfNumbers) {
-    //     // Un numero random
-    //     const randomNumber = getRndInteger(1, quantityOfNumbers);
-
-    //     // Se il numero random non è gia presente in numbersArray lo pusho
-    //     if( !numbersArray.includes(randomNumber) ) {
-    //         numbersArray.push(randomNumber);
-    //     }
-    // }
-
+    // return: array di quantityOfNumbers numeri univoci
     return numbersArray;
 }
-
-// function getRndInteger(min, max) {
-//     return Math.floor(Math.random() * (max - min + 1) ) + min;
-// }
